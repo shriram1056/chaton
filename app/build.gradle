@@ -6,7 +6,7 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.littleit.whatsappclone"
+        applicationId "com.example.whatsappclone"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
