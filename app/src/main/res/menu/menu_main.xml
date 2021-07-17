@@ -17,7 +17,7 @@
             android:title="New broadcast" />
         <item
             android:id="@+id/action_wa_web"
-            android:title="WhatsApp Web" />
+            android:title="chaton Web" />
         <item
             android:id="@+id/action_starred_message"
             android:title="Starred message" />

@@ -62,7 +62,7 @@
                         android:id="@+id/tv_bio"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Hey there's I am using WhatsApp"/>
+                        android:text="Hey there's I am using chaton"/>
                 </LinearLayout>
             </LinearLayout>
 

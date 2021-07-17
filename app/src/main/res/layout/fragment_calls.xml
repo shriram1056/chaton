@@ -33,7 +33,7 @@
           android:layout_marginTop="10dp"
           android:layout_marginBottom="20dp"
           android:gravity="center_horizontal"
-          android:text="None of your contacts are using WhatsApp.\nUse the button below to invite them."/>
+          android:text="None of your contacts are using chaton.\nUse the button below to invite them."/>
 
       <Button
           android:layout_width="match_parent"
@@ -50,7 +50,7 @@
           android:layout_marginTop="10dp"
           android:layout_marginBottom="20dp"
           android:gravity="center_horizontal"
-          android:text="Chat with your friends who are use WhatsApp on iphone, \nAndroid, or KaiOS phone"/>
+          android:text="Chat with your friends who are use chaton on iphone, \nAndroid, or KaiOS phone"/>
 
    </LinearLayout>
 

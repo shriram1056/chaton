@@ -1,42 +1,34 @@
 {
   "project_info": {
-    "project_number": "70690020244",
-    "firebase_url": "https://whatsappclone-e89dc.firebaseio.com",
-    "project_id": "whatsappclone-e89dc",
-    "storage_bucket": "whatsappclone-e89dc.appspot.com"
+    "project_number": "982008473436",
+    "firebase_url": "https://chaton-57ffc-default-rtdb.firebaseio.com",
+    "project_id": "chaton-57ffc",
+    "storage_bucket": "chaton-57ffc.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:70690020244:android:e7f1242937a796790fcd81",
+        "mobilesdk_app_id": "1:982008473436:android:51b4d05da7ec8eea908399",
         "android_client_info": {
-          "package_name": "com.littleit.whatsappclone"
+          "package_name": "com.example.chaton"
         }
       },
       "oauth_client": [
         {
-          "client_id": "70690020244-1oi8ghq4q8t8qb2uic7pbmso0q1a9fau.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.littleit.whatsappclone",
-            "certificate_hash": "18bf4c423ab8656054eb6680cb86d59f1656183d"
-          }
-        },
-        {
-          "client_id": "70690020244-t37levrmdjlkj0gkvtqkc7dfo3omcsca.apps.googleusercontent.com",
+          "client_id": "982008473436-k7bbc07mu64h8vhdl5ndrc9ddei95i6b.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyASepLap2Dltl938_gwKMxBTnQrxy1HAF8"
+          "current_key": "AIzaSyD8f4CpA6xOqMEIz7h-C9bAtEGc9uPAihY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "70690020244-t37levrmdjlkj0gkvtqkc7dfo3omcsca.apps.googleusercontent.com",
+              "client_id": "982008473436-k7bbc07mu64h8vhdl5ndrc9ddei95i6b.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

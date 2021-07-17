@@ -19,7 +19,7 @@
             android:textSize="25sp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
-            android:text="Welcome to WhatsApp Clone"/>
+            android:text="Welcome to Chaton"/>
 
         <ImageView
             android:layout_width="250dp"

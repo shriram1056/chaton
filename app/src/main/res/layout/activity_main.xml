@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             app:titleTextColor="@android:color/white"
-            app:title="WhatsApp"/>
+            app:title="chaton"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

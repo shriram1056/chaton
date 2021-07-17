@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:textColor="@android:color/black"
-            android:text="WhatsApp will send an SMS message to verify your phone number.What's my number?"/>
+            android:text="Chaton will send an SMS message to verify your phone number.What's my number?"/>
 
 
         <LinearLayout
