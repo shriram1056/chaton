@@ -68,7 +68,7 @@ public class SetUserInfoActivity extends AppCompatActivity {
 
     private int IMAGE_GALLERY_REQUEST = 111;
     private Uri imageUri;
-    private String ImageFromStorage;
+    private String ImageFromStorage, userName;
     private  FirebaseUser firebaseUser;
     private FirebaseFirestore db;
 
@@ -87,7 +87,8 @@ public class SetUserInfoActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
-                    binding.edName.setText(task.getResult().getString("userName"));
+                    userName = task.getResult().getString("userName");
+                    binding.edName.setText(userName);
                     ImageFromStorage = task.getResult().getString("imageProfile");
                     Glide.with(SetUserInfoActivity.this).load(ImageFromStorage)
                             .asBitmap()
@@ -115,6 +116,7 @@ public class SetUserInfoActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(binding.edName.getText().toString())){
                     Toast.makeText(getApplicationContext(),"Please input username",Toast.LENGTH_SHORT).show();
                 } else {
+                    Log.e("upload start","SUCESS");
                     uploadToFirebase();
                 }
 
@@ -242,55 +244,82 @@ public class SetUserInfoActivity extends AppCompatActivity {
 
     private void uploadToFirebase() {
         if (imageUri!=null){
-            progressDialog.setMessage("Uploading...");
+            Log.i("SUCCESS","new user");
+            upload();
+        }
+        else if(imageUri == null && !ImageFromStorage.equals("") && binding.edName.getText().toString().equals(userName)){
+            Log.i("instant",ImageFromStorage);
+            startActivity(new Intent(SetUserInfoActivity.this, MainActivity.class));
+        }
+        else if(imageUri == null && !ImageFromStorage.equals("") && !binding.edName.getText().toString().equals(userName)){
+            Log.i("image",ImageFromStorage);
+            progressDialog.setMessage("updating user name");
             progressDialog.show();
-
-            StorageReference riversRef = FirebaseStorage.getInstance().getReference().child("ImagesProfile/" + System.currentTimeMillis()+"."+getFileExtention(imageUri));
-            riversRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                    Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
-                    while (!urlTask.isSuccessful()) ;
-                    Uri downloadUrl = urlTask.getResult();
-                    Log.w("5", "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
-                    final String sdownload_url = String.valueOf(downloadUrl);
-                    progressDialog.dismiss();
-                    HashMap<String, Object> hashMap = new HashMap<>();
-                    hashMap.put("imageProfile", sdownload_url);
-                    hashMap.put("userName", binding.edName.getText().toString());
-                    db.collection("Users").document(firebaseUser.getUid()).update(hashMap)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Toast.makeText(getApplicationContext(), "upload success", Toast.LENGTH_SHORT).show();
-                                    progressDialog.dismiss();
-                                    startActivity(new Intent(SetUserInfoActivity.this, MainActivity.class));
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("userName", binding.edName.getText().toString());
+            db.collection("Users").document(firebaseUser.getUid()).update(hashMap)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
-                        public void onFailure(@NonNull Exception e) {
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getApplicationContext(), "username update success", Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
-                            Toast.makeText(getApplicationContext(),"username update failed",Toast.LENGTH_SHORT).show();
-                            Log.w("7","FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",e);
+                            startActivity(new Intent(SetUserInfoActivity.this, MainActivity.class));
                         }
-                    });
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
+                    }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     progressDialog.dismiss();
-                    Toast.makeText(getApplicationContext(),"upload Failed",Toast.LENGTH_SHORT).show();
-                    Log.w("2","FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
+                    Toast.makeText(getApplicationContext(),"username update failed",Toast.LENGTH_SHORT).show();
+                    Log.w("7","FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",e);
                 }
             });
-        }
-        else if(ImageFromStorage != null){
-            startActivity(new Intent(SetUserInfoActivity.this, MainActivity.class));
         }
         else{
             Toast.makeText(getApplicationContext(),"upload an image",Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void upload(){
+        progressDialog.setMessage("Uploading...");
+        progressDialog.show();
+
+        StorageReference riversRef = FirebaseStorage.getInstance().getReference().child("ImagesProfile/" + System.currentTimeMillis()+"."+getFileExtention(imageUri));
+        riversRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
+                while (!urlTask.isSuccessful()) ;
+                Uri downloadUrl = urlTask.getResult();
+                Log.w("5", "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
+                final String sdownload_url = String.valueOf(downloadUrl);
+                progressDialog.dismiss();
+                HashMap<String, Object> hashMap = new HashMap<>();
+                hashMap.put("imageProfile", sdownload_url);
+                hashMap.put("userName", binding.edName.getText().toString());
+                db.collection("Users").document(firebaseUser.getUid()).update(hashMap)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(getApplicationContext(), "upload success", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+                                startActivity(new Intent(SetUserInfoActivity.this, MainActivity.class));
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(),"user not registered",Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(),"upload Failed",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
