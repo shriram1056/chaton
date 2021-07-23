@@ -2,6 +2,8 @@ chaton made with java and firebase for android.
 users can create account with mobile number and authentication is handled with otp(one-time-password) sent as text message.
 users can chat with other users who have an account.
 
+https://www.youtube.com/watch?v=9RnRqi-2KFY
+
 ﻿firestore for storing documents in collecction without sync across users          firestore = FirebaseFirestore.getInstance();
 
 real time database - for retriving data everytime the data is changed             databaseReference= FirebaseDatabase.getInstance().getReference();
